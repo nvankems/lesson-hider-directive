@@ -26,14 +26,14 @@ Let's continue by creating your directive. You will use the directive method on 
 This method takes two parameters: a string that will be the name of your directive, and a callback function which will return an object. It should look
 something like this:
 
-```javascript
+javascript
 angular.module('directivePractice')
 .directive('lessonHider', function() {
   return {
 
   }
 });
-```
+
 
 Looking pretty familiar, right? So let's test it and make sure it works! Start out by creating a new file named `lessonHider.html` and adding some text. Once
 you have that done we can add a property called `templateUrl: ` to our directive's return object. Point the templateUrl to your newly created
@@ -60,9 +60,9 @@ lessonHider directive to only be an Element.
 So far our directive is displaying some text, but it isn't doing much else, so let's bring it up a level! Inside your `lessonCtrl` let's add an array of lessons
 to your `$scope`. Give the lessons array these values:
 
-```javascript
+javascript
 ['Services', 'Routing', 'Directives', 'Review', 'Firebase', 'No server project', 'Node', 'Express', 'Mongo'];
-```
+
 
 Now inside of our directive's template we can display the array of lessons the same way we would in any of our other html. Add the lessons array to the template
 and reload the page to make sure it prints out what we want.
@@ -71,7 +71,7 @@ Cool! But still not much that's new, so let's dive a little deeper. Inside of yo
 give it the value of a function. The link method will always be passed three parameters: `scope`, `element`, and `attributes`, in that order. At this point your
 directive should look like this:
 
-```javascript
+javascript
 angular.module('directivePractice')
 .directive('lessonHider', function() {
 
@@ -84,7 +84,7 @@ angular.module('directivePractice')
   }
 
 });
-```
+
 
 Unlike dependency injection used elsewhere in Angular these parameter names don't carry specific meaning. The first parameter represents the `$scope` of your
 directive, the second is the html element that wraps your directive, and the third is an object containing all the properties and values of the attributes on
@@ -111,7 +111,7 @@ Angular's work-around to this problem lies in something called Isolate Scope. Is
 this case) and only allows the directive to use data we explicitly pass to it. To isolate scope, all we need to do is add a `scope:` property to our directive's
 return object and give that `scope:` property the value of an object. Here is what the directive should look like after adding `scope:`:
 
-```javascript
+javascript
 angular.module('directivePractice')
 .directive('lessonHider', function() {
 
@@ -127,20 +127,20 @@ angular.module('directivePractice')
   }
 
 });
-```
+
 
 Once you have added the `scope:` property you will see that the directive is no longer displaying `{{ lessons }}`. This is because our directive no longer has
 access to lessonCtrl and therefore no longer has access to the `$scope.lessons` array. That's ok! We'll fix it soon!
 
 A quick refresher on the different scope options here:
 
-```javascript
+javascript
 scope: {
   twoWayDataBinding: '=',
   stringBinding: '@',
   functionBinding: '&'
 }
-```
+
 
 Two-way data binding means that our directive and its parent controller (lessonCtrl in this case) are in constant communication when the value passed in
 changes. Any changes made will be reflected both in the controller and inside the directive.
@@ -175,18 +175,18 @@ your `lessonCtrl`. Don't worry! `ng-repeat` will work on our directive just like
 our `lesson` attribute on the directive.
 
 `index.html`:
-```
+
 <ul>
 	<lesson-hider ng-repeat="lesson in lessons" lesson="lesson"></lesson-hider>
 </ul>
-```
+
 
 For formatting purposes we'll also want to add `<li>` tags to our lessonHider.html.
 
 `lessonHider.html`:
-```
+
 <li>{{ lesson }}</li>
-```
+
 
 When you reload the page you should see a list of all the different lessons from your lessons array. We're ready to push on!
 
@@ -216,7 +216,7 @@ value to a property on the scope named `scope.schedule`.
 
 Your directive should now look something like this:
 
-```javascript
+javascript
 angular.module('directivePractice')
 .directive('lessonHider', function() {
 
@@ -237,7 +237,7 @@ angular.module('directivePractice')
   }
 
 });
-```
+
 
 Now we have all the data we need for basic functionality! Time to make use of that data inside our link function. The link function in directives is primarily
 used when you need to manipulate the DOM, and it will feel a lot like jQuery (because Angular is using a pared down version of jQuery called jqLite). So now
@@ -256,7 +256,7 @@ fix this!
 
 Before adding more functionality, let's make sure we're up to speed. Here is what your directive should look like now:
 
-```javascript
+javascript
 angular.module('directivePractice')
 .directive('lessonHider', function() {
 
@@ -286,7 +286,7 @@ angular.module('directivePractice')
   }
 
 });
-```
+
 
 First we will need to add a new property onto our scope object. Let's call this property `dayAlert:`. We will be passing this value a function, so remember that
 we want to use the `'&'` instead of the `'='`. Now that we have that property on our scope, we need to give it a value, so let's go back to our `lessonCtrl` and
@@ -296,9 +296,9 @@ active on ' + day + '.'`.
 Our next step is to pass this new function to our directive. Don't forget that Angular will swap camelCase to snake-case in your html! The directive element
 inside your index.html should now look something like this:
 
-```html
+html
 <lesson-hider ng-repeat="lesson in lessons" lesson="lesson" day-alert="announceDay(lesson, day)"></lesson-hider>
-```
+
 
 Now that we have access to our new function inside of our directive we need to change a few things. First off, we will need to save a reference to the lesson's
 day on our scope. So inside our link function's `if` statement we will create a new property called `scope.lessonDay` and set it equal to the day in the

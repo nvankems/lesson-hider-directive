@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en" ng-app="lessonApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="" rel="stylesheet">
+    <link href="" rel="stylesheet">
+
+</head>
+<body ng-controller="lessonCtrl">
+
+
+    <ul>
+        <lesson-hider lesson="lesson" ng-repeat="lesson in lessons" day-alert="announceDay(lesson, day)"></lesson-hider>
+    </ul>
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.js"></script>
+<script src="app.js"></script>
+<script src="lessonCtrl.js"></script>
+<script src="lessonService.js"></script>
+<script src="lessonHider.js"></script>
+
+</body>
+</html>
